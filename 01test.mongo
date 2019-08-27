@@ -1,0 +1,36 @@
+db.createCollection('roles')
+
+db.users.insert({
+  name:'tom',
+  age:12,
+  sex:'男'
+})
+db.users.insert([
+  {
+    name:'jack',
+    age:13,
+    sex:'男'
+  },
+  {
+    name:'marry',
+    age:10,
+    sex:'女'
+  }
+])
+
+//查询一个年龄为11的用户
+db.users.findOne({"age": 10})
+//查询所有年龄不小于12的用户
+db.users.find({"age": {"$gte": 12}})
+//将Jack和的信息查询出来
+db.users.find({"name": "jack"})
+//查询所有用户名以J开头的用户
+db.users.find({"name": /^j/})
+//查询所有用户名以J开头的用户, 但不需要性别
+db.users.find({"name": /^j/},{"sex": 0})
+//更新一个年龄小于13的用户的用户名为: atguigu
+db.users.update( {age:{$lt:13}},{$set:{name:'atguigu'}} )
+//更新所有年龄小于13的用户的用户名为: atguigu2
+db.users.update( {age:{$lt:13}},{$set:{name:'atguigu2'}} ,{multi:true} )
+//删除所有年龄小于13的用户
+db.users.remove({age:{$lt:14}})
